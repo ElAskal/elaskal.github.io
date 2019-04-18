@@ -12,10 +12,16 @@
     require_once __DIR__.'/init.php';
     require_once __DIR__.'/common.php';
 
+    createTable('groups',
+        'id INT NOT SIGNED AUTO INCREMENT NOT NULL,
+        name VARCHAR(32) NOT NULL,
+        desc VARCHAR(512),
+        staff BOOLEAN NOT NULL  ');
+    
     createTable('categories',
-        'name VARCHAR(16) NOT NULL,
-        desc VARCHAR(16),
-        INDEX(user(6))');
+        'id INT NOT SIGNED AUTO INCREMENT NOT NULL,
+        name VARCHAR(64) NOT NULL,
+        desc VARCHAR(512)');
 
 ?>
 
