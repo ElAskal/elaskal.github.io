@@ -1,5 +1,10 @@
 <?php
 
+function createTable($name, $query)
+{
+    createQuery("CREATE TABLE $name($query)");
+}
+
 function createQuery($query)
 {
     global $connection;
@@ -11,10 +16,6 @@ function createQuery($query)
     return $result;
 }
 
-function createTable($name, $query)
-{
-    createQuery("CREATE TABLE IF NOT EXIST $name($query)");
-}
 
 function destroySession()
 {

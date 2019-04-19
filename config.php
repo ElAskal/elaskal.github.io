@@ -1,6 +1,6 @@
 <?php
 
-$appname = 'Parrot';
+$appname = 'Forum';
 
 $dbhost = 'localhost';
 $dbname = 'parrot';
