@@ -1,0 +1,32 @@
+.categories 
+{
+	border-collapse		: collapse;
+	width				: 40%;
+}
+
+.categories, td, th 
+{
+	border				: 1px solid black;
+}
+
+.categories > th
+{
+	text-align			: center;
+}
+
+.categories td
+{
+	width				: 15%;
+	height				: 100px;
+}
+
+.categories .catDesc
+{
+	width				: 70%;
+}
+
+.categories li 
+{
+	display				: inline;
+	padding-left 		: 5px;
+}

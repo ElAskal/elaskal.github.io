@@ -7,6 +7,7 @@
     if ($connection->connect_error) {
         die($connection->connect_error);
     }
+    $connection->query("SET NAMES UTF8");
 
     if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];

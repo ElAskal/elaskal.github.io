@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+       <meta charset="UTF-8">
         <title><?="$appname $userstr"?></title>
         
         <script src="js-ext/jquery-1.11.3.js"></script>
-        <link rel='stylesheet' href='css/styles.css' type='text/css'>
+        <link rel='stylesheet' href='css/global.css' type='text/css'>
     </head>
     <body>
         <center>
             <canvas id='logo' width='624' height='96'>$appname</canvas>
-        </center>
         <div class='appname'><?="$appname $userstr"?></div> 
         <script src='js/javascript.js'></script>
 <?php 

@@ -2,7 +2,7 @@
 
 function createTable($name, $query)
 {
-    createQuery("CREATE TABLE $name($query)");
+    createQuery("CREATE TABLE $name($query) CHARSET utf8");
 }
 
 function createQuery($query)
