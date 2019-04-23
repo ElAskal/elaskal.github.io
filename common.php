@@ -2,7 +2,7 @@
 
 function createTable($name, $query)
 {
-    createQuery("CREATE TABLE $name($query) CHARSET utf8");
+    echo "CREATE TABLE $name($query) CHARSET utf8<br>";
 }
 
 function createQuery($query)
@@ -36,4 +36,10 @@ function sanitizeString($var)
     $var = stripslashes($var);
     
     return $connection->real_escape_string($var);
+}
+
+function encryptPWD($password) 
+{
+    $password = password_hash($password, PASSWORD_BCRYPT);
+    return $password;
 }

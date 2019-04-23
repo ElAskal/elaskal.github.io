@@ -1,77 +1,42 @@
 <?php
 
-    require_once __DIR__.'/init.php';
-    require_once __DIR__.'/common.php';
-    require_once __DIR__.'/header.php';
+    require_once __DIR__.'/../init.php';
+    require_once __DIR__.'/../common.php';
+    require_once __DIR__.'/../header.php';
     
-    echo <<<_END
-      <script>
-        function checkUser(user)
-        {
-          if (user.value == '')
-          {
-            O('info').innerHTML = ''
-            return
-          }
-          params  = "user=" + user.value
-          request = new ajaxRequest()
-          request.open("POST", "checkuser.php", true)
-          request.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-          request.setRequestHeader("Content-length", params.length)
-          request.setRequestHeader("Connection", "close")
-          request.onreadystatechange = function()
-          {
-            if (this.readyState == 4)
-              if (this.status == 200)
-                if (this.responseText != null)
-                  O('info').innerHTML = this.responseText
-          }
-          request.send(params)
-        }
-        function ajaxRequest()
-        {
-        	// Check browser function
-          try { var request = new XMLHttpRequest() }
-          catch(e1) {
-           //		IE6+ check
-            try { request = new ActiveXObject("Msxml2.XMLHTTP") }
-            catch(e2) {
-            	  //		IE5 check
-              try { request = new ActiveXObject("Microsoft.XMLHTTP") }
-              catch(e3) {
-                request = false
-          } } }
-          return request
-        }
-      </script>
-      <div class='main'><h3>Please enter your details to sign up</h3>
-    _END;
+    echo "<script type=\"text/javascript\" src=\"/../js/signup.js\"> </script>
+      <div class='main'><h3>Please enter your details to sign up</h3>";
     
-    $error = $user = $pass = "";
+    $error = $mail = $user = $pass = "";
     if (isset($_SESSION['user'])) destroySession();
     if (isset($_POST['user']))
     {
+        $mail = sanitizeString($_POST['mail']);
         $user = sanitizeString($_POST['user']);
         $pass = sanitizeString($_POST['pass']);
+
         if ($user == "" || $pass == "")
             $error = "Not all fields were entered<br><br>";
             else
             {
-                $result = queryMysql("SELECT * FROM members WHERE user='$user'");
+                $result = createQuery("SELECT * FROM members WHERE username='$user'");
                 if ($result->num_rows)
                     $error = "That username already exists<br><br>";
                     else
-                    {
-                        queryMysql("INSERT INTO members VALUES('$user', '$pass')");
+                    {        
+                        $pass = encryptPWD($pass);
+                        createQuery("INSERT INTO members VALUES('', '$mail', '$user', '$pass')");
                         die("<h4>Account created</h4>Please Log in.<br><br>");
                     }
             }
     }
     echo <<<_END
-    <form method='post' action='signup.php'>$error
+    <form method='post' action='login.php'>$error
+    <span class='fieldname'>Mail</span>
+    <input type='text' maxlength='256' name='mail' value='$mail'><br>
     <span class='fieldname'>Username</span>
     <input type='text' maxlength='16' name='user' value='$user'
-      onBlur='checkUser(this)'><span id='info'></span><br>
+      onBlur="checkUser(this)"><span id='info'></span><br>
     <span class='fieldname'>Password</span>
     <input type='text' maxlength='16' name='pass'
       value='$pass'><br>
