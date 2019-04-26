@@ -13,18 +13,17 @@
         <div class='appname'><?="$appname $userstr"?></div> 
         <script src='js/javascript.js'></script>
 <?php 
-    if ($loggedin) {
+    if (isset($_SESSION['user'])) {
         echo "<br><ul class='menu'>".
-                  "<li><a href='index.php?page=members&view=$user'>Home</a></li>".
-                  "<li><a href='index.php?page=members'>Members</a></li>".
-                  "<li><a href='index.php?page=friends'>Friends</a></li>".
-                  "<li><a href='index.php?page=messages'>Messages</a></li>".
-                  "<li><a href='index.php?page=profile'>Edit Profile</a></li>".
-                  "<li><a href='index.php?page=logout'>Log out</a></li></ul><br>";
+                  "<li><a href='index.php'>Home</a></li>".
+                  "<li><a href='members.php'>Members</a></li>".
+                  "<li><a href='messages.php'>Messages</a></li>".
+                  "<li><a href='profile.php'>Edit Profile</a></li>".
+                  "<li><a href='logout.php'>Log out</a></li></ul><br>";
     } else {
         echo "<br><ul class='menu'>".
                     "<li><a href='index.php'>Home</a></li>".
-                    "<li><a href='index.php?page=signup'>Sign up</a></li>".
-                    "<li><a href='index.php?page=login'>Log in</a></li></ul><br>";
+                    "<li><a href='signup.php'>Sign up</a></li>".
+                    "<li><a href='login.php'>Log in</a></li></ul><br>";
 
     }

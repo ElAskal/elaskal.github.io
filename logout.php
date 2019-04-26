@@ -1,0 +1,12 @@
+<?php
+
+    require_once __DIR__.'/init.php';
+    require_once __DIR__.'/header.php';
+    require_once __DIR__.'/common.php';
+    
+    if (isset($_SESSION['user'])) {
+        destroySession();
+        echo "<div class='main'>You have been logged out. Please <a href='index.php'>click here</a> to refresh the screen.</div>";
+    } else {
+        echo "<div class='main'><br> You cannot log out because you are not logged in.</div>";
+    }

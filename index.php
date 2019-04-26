@@ -48,6 +48,49 @@
          echo "</table><br/>";
     }
     
+    function getAuthorId($topic) {
+        $query = "SELECT * FROM " .$GLOBALS['tableMemb']. " WHERE id IN (SELECT author FROM ".$GLOBALS['tableTopToMess']. " WHERE topic = " .$topic. ")";
+        $result =  createQuery($query);
+        if ($result->num_rows)
+        {
+            $tab = $result->fetch_array(MYSQLI_ASSOC);
+            $author_id = $tab['id'];
+            $author_name = $tab['username'];
+            return "<a href='" .$GLOBALS['home_url']. "profile.php?user=" .$author_id. "'>" .$author_name. "</a>";
+        }
+        else {
+            return "Invité";
+        }
+    }
+    
+    function displayTopics($topics){
+        
+        echo "<table class='topics'>
+                <th></th>
+                <th>Titre du sujet</th>
+                <th>Auteur</th>
+                <th>Dernier message</th>";
+        // Max number of topics per page
+        $limit = 2;
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'] - 1; 
+        } 
+        else {
+            $page = 0;
+        }
+        $start = $page * $limit;
+        $rows = $topics->fetch_row();
+        for ($i = $start ; $i < $topics->num_rows && $i < ($start + $limit) ; $i++) {
+            $topics = $topics->fetch_row($i);
+            $tab = $topics->fetch_array(MYSQLI_ASSOC);
+            echo "<tr><td>Nouveau message</td>
+                        <td class='topTitle'>" .$tab['name']. "</td>
+                        <td>" .getAuthorId($tab['id']) ."</td>
+                        <td>Last message</td></tr>";
+        }
+        echo "</table><br>";
+    }
+    
     echo "<br><span>Welcomme to ".$GLOBALS['appname']."</span><br/>";
     
     $query = "SELECT * FROM ".$GLOBALS['tableCat']." WHERE id ";
@@ -64,9 +107,19 @@
     {
         display1stCategories($result);
     }
-    else 
+    else
     {
         echo "<p>Nothing to display!</p>";
+    }
+    if (isset($_GET['view']))
+    {
+        $view = $_GET['view'];
+        $query = "SELECT * FROM " .$GLOBALS['tableTop']." WHERE id IN (SELECT topic FROM " .$GLOBALS['tableCatToTop'] ." WHERE category = " .$view .")";
+        $result = createQuery($query);
+        if ($result->num_rows)
+        {
+            displayTopics($result);
+        }
     }
     
     require_once __DIR__.'/footer.php';
