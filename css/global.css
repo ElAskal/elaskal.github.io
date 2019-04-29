@@ -1,7 +1,14 @@
 @import 'index.css';
 @import 'topic.css';
+@import 'profile.css';
 
 .menu li
 {
 	display				: inline;
+}
+
+table
+{
+	border-collapse		: collapse;
+	width				: 40%;
 }
