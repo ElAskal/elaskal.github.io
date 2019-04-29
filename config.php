@@ -18,4 +18,7 @@ $tableTopToMess = 'topic_to_messages';
 $tablePM = 'private_messages';
 $tableMembership = 'group_membership';
 
+$topicsPerPage = 30;
+$messagesPerPage = 15;
+
 $home_url = '/';

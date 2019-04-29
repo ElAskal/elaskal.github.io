@@ -1,6 +1,7 @@
 @import 'index.css';
+@import 'topic.css';
 
-.menu 
+.menu li
 {
 	display				: inline;
 }

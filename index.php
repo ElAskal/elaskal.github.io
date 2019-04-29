@@ -71,7 +71,7 @@
                 <th>Auteur</th>
                 <th>Dernier message</th>";
         // Max number of topics per page
-        $limit = 2;
+        $limit = $GLOBALS['topicsPerPage'];
         if (isset($_GET['page'])) {
             $page = $_GET['page'] - 1; 
         } 
@@ -79,12 +79,11 @@
             $page = 0;
         }
         $start = $page * $limit;
-        $rows = $topics->fetch_row();
+        $topics->data_seek($start);
         for ($i = $start ; $i < $topics->num_rows && $i < ($start + $limit) ; $i++) {
-            $topics = $topics->fetch_row($i);
             $tab = $topics->fetch_array(MYSQLI_ASSOC);
             echo "<tr><td>Nouveau message</td>
-                        <td class='topTitle'>" .$tab['name']. "</td>
+                        <td class='topTitle'><a href=\"/topic.php?view=" .$tab['id']. "\">" .$tab['name']. "</a></td>
                         <td>" .getAuthorId($tab['id']) ."</td>
                         <td>Last message</td></tr>";
         }

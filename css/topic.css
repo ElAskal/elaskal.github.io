@@ -1,0 +1,16 @@
+.topicview
+{
+	border-collapse		: collapse;
+	width				: 40%;
+}
+
+.topicview, td, th
+{
+	border				: 1px solid black;
+}
+
+.topicview .author
+{
+	text-align			: center;
+	width			 	: 20%;
+}
